@@ -1,0 +1,182 @@
+const userModel = require("../models/user.model")
+const foodpartner = require('../models/foodPartner.model')
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken");
+const foodPartnerModel = require("../models/foodPartner.model");
+
+
+//For User Registration
+
+async function registerUser(req,res) {
+    const {fullName, email, password} = req.body;
+
+    const isUserAlreadyExist = await userModel.findOne({
+        email
+
+    })
+    if(isUserAlreadyExist){
+        return res.status(400).json({
+            message:"User already exists"
+        })
+        
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await userModel.create({
+        fullName,
+        email,
+        password: hashedPassword
+    })
+
+    const token = jwt.sign({
+        id: user._id, 
+
+    },process.env.JWT_SECRET)
+    res.cookie("token",token)
+
+    res.status(201).json({
+        message: "User Registered Successfully",
+        user:{
+            _id: user._id,
+            email:user.email,
+            fullName: user.fullName
+        }
+    })
+}
+
+
+//For User login
+
+async function loginUser(req,res) {
+    const {email,password} = req.body;
+
+    const user = await userModel.findOne({
+        email
+    })
+    if(!user){
+        res.status(400).json({
+            message: "Invalid Email or Password"
+        })
+    }
+
+    const isPasswordValids = await bcrypt.compare(password, user.password);
+
+    if(!isPasswordValids){
+        return res.status(400).json({
+            message: "Invalid Email or Password"
+        })
+    }
+
+    const token = jwt.sign({
+        id: user._id,
+
+    },process.env.JWT_SECRET)
+    res.cookie("token",token)
+
+    res.status(200).json({
+        message: "User Logged in Successfully",
+        user: {
+            _id: user._id,
+            email: user.email,
+            fullName: user.fullName
+        }
+    })
+} 
+
+
+//For user LogOut
+async function logOutUser(req,res){
+    res.clearCookie("token");
+    res.status(200).json({
+        message: "User logout successfully"
+    });
+}
+
+// For Food Partner Registration
+async function registerFoodPartner (req,res){
+    const {name, email, password} = req.body;
+
+    const isFoodPartnerAlreadyExist = await foodpartner.findOne({
+        email
+    })
+    if(isFoodPartnerAlreadyExist){
+        res.status(400).json({
+            message:"Food Partner Already Exist"
+        })
+    }
+    const hashedPassword = await bcrypt.hash(password,10);
+    const foodPartner = await foodPartnerModel.create({
+        name,
+        email,
+        password:hashedPassword
+    })
+
+    const token = jwt.sign({
+        id: foodPartner._id,
+    },process.env.JWT_SECRET)
+
+    res.cookie("token",token)
+
+    res.status(201).json({
+        message: " Food Partner Registered SUccessfull ",
+        foodPartner: {
+            _id: foodPartner._id,
+            email:foodPartner.email,
+            name:foodPartner.name
+        }
+    })
+}
+
+//Login for food Prtner 
+async function loginFoodPartner(req,res) {
+    const {email,password} = req.body;
+
+    const partner = await foodPartnerModel.findOne({
+        email
+    })
+
+    if(!partner){
+        res.status(400).json({
+            message:"Email or Password Not found "
+        })
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, partner.password);
+    if(!isPasswordValid){
+        return res.status(400).json({
+            message: "Invalid Password and email"
+        })
+    }
+const token = jwt.sign({
+    id: partner._id,
+},process.env.JWT_SECRET)
+res.cookie("token",token)
+res.status(201).json({
+    message: "Food Partner Login Successful",
+    partner: {
+            _id:partner._id,
+            email:partner.email,
+            name:partner.name
+    }
+})
+    }
+
+    //Logout For Food Partner
+
+    async function logOut(req,res){
+        res.clearCookie("token")
+        res.status(201).json({
+            message:"Logout Successfully"
+        })
+    }
+
+
+
+module.exports={
+    registerUser,
+    loginUser,
+    logOutUser,
+    registerFoodPartner,
+    loginFoodPartner,
+    logOut
+}
