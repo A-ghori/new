@@ -16,4 +16,10 @@ router.post(
     foodController.createFood
     )
 
+    router.get(
+        "/",
+        authMiddleWare.authUserMiddleware,
+        foodController.findFood
+    )
+
 module.exports = router
