@@ -1,0 +1,54 @@
+.auth-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: linear-gradient(135deg,#fafafa,#f6f7fb);
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(19, 24, 34, 0.06);
+  padding: 28px;
+}
+
+.title {
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  color: #111827;
+  text-align: center;
+}
+
+.form label {
+  display: block;
+  font-size: 13px;
+  color: #374151;
+  margin: 10px 0 6px;
+}
+
+.form input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e6e9ef;
+  border-radius: 8px;
+  background: #fbfdff;
+  outline: none;
+  transition: border-color .15s;
+}
+
+.form input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79,70,229,0.08);
+}
+
+.btn {
+  margin-top: 16px;
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg,#4f46e5,#06b6d4);
+  color: #fff;
+}

@@ -8,7 +8,7 @@ const foodPartnerModel = require("../models/foodPartner.model");
 //For User Registration
 
 async function registerUser(req,res) {
-    const {fullName, email, password} = req.body;
+    const {fullName, email, password, phone, address} = req.body;
 
     const isUserAlreadyExist = await userModel.findOne({
         email
@@ -25,7 +25,9 @@ async function registerUser(req,res) {
     const user = await userModel.create({
         fullName,
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        phone,
+        address
     })
 
     const token = jwt.sign({
@@ -39,7 +41,9 @@ async function registerUser(req,res) {
         user:{
             _id: user._id,
             email:user.email,
-            fullName: user.fullName
+            fullName: user.fullName,
+            phone: user.phone,
+            address:user.address
         }
     })
 }
@@ -94,7 +98,7 @@ async function logOutUser(req,res){
 
 // For Food Partner Registration
 async function registerFoodPartner (req,res){
-    const {name, email, password} = req.body;
+    const {name, email, password, phone, address,resturant} = req.body;
 
     const isFoodPartnerAlreadyExist = await foodpartner.findOne({
         email
@@ -108,7 +112,10 @@ async function registerFoodPartner (req,res){
     const foodPartner = await foodPartnerModel.create({
         name,
         email,
-        password:hashedPassword
+        password:hashedPassword,
+        phone,
+        address,
+        resturant
     })
 
     const token = jwt.sign({
@@ -122,7 +129,10 @@ async function registerFoodPartner (req,res){
         foodPartner: {
             _id: foodPartner._id,
             email:foodPartner.email,
-            name:foodPartner.name
+            name:foodPartner.name,
+            phone:foodPartner.phone,
+            address:foodPartner.address,
+            resturant:foodPartner.resturant
         }
     })
 }
