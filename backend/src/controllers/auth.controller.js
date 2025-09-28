@@ -52,10 +52,11 @@ async function registerUser(req,res) {
 //For User login
 
 async function loginUser(req,res) {
-    const {email,password} = req.body;
+    const {email,password,phone} = req.body;
 
     const user = await userModel.findOne({
-        email
+        email,
+        phone
     })
     if(!user){
         res.status(400).json({
@@ -82,7 +83,8 @@ async function loginUser(req,res) {
         user: {
             _id: user._id,
             email: user.email,
-            fullName: user.fullName
+            fullName: user.fullName,
+            phone:user.phone
         }
     })
 } 
@@ -139,10 +141,11 @@ async function registerFoodPartner (req,res){
 
 //Login for food Prtner 
 async function loginFoodPartner(req,res) {
-    const {email,password} = req.body;
+    const {email,password, phone} = req.body;
 
     const partner = await foodPartnerModel.findOne({
-        email
+        email,
+        phone
     })
 
     if(!partner){
@@ -166,7 +169,8 @@ res.status(201).json({
     partner: {
             _id:partner._id,
             email:partner.email,
-            name:partner.name
+            name:partner.name,
+            phone:partner.phone
     }
 })
     }

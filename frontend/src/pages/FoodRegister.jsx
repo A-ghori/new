@@ -1,27 +1,56 @@
 import React from "react";
 import "../styles/FoodPartnerRegister.css";
+import axios from "axios"
+import { useNavigate } from "react-router-dom";
 
-const FoodPartnerRegister = () => (
+const FoodPartnerRegister = () => {
+const navigate = useNavigate()
+
+const handleSubmit = async (e) => {
+e.preventDefault();
+
+const Name = e.target.elements.Name.value;
+const Contact = e.target.elements.Contact.value;
+const Resturant = e.target.elements.Resturant.value;
+const Address = e.target.elements.Address.value;
+const Email = e.target.elements.Email.value;
+const Password = e.target.elements.Password.value;
+
+
+const response = await axios.post("http://localhost:3000/api/auth/partner/register",{
+  name: Name,
+  email:Email,
+  password: Password,
+  phone: Contact,
+  resturant: Resturant,
+  address: Address
+},{
+withCredentials:true
+})
+console.log(response.data)
+navigate("/resturant")
+}
+return(
   <div className="auth-page">
     <div className="card">
       <h2 className="title">Food Partner Registration</h2>
-      <form className="form">
-        <label>Restaurant Name</label>
-        <input type="text" placeholder="Enter restaurant name" />
+      <form className="form" onSubmit={handleSubmit}>
+        <label>Resturant Name</label>
+        <input type="text" name="Resturant" placeholder="Enter resturant name" />
         <label>Contact Name</label>
-        <input type="text" placeholder="Enter contact name" />
+        <input type="text" name="Name" placeholder="Enter contact name" />
         <label>Contact Number</label>
-        <input type="tel" placeholder="Enter contact number" />
+        <input type="tel" name="Contact" placeholder="Enter contact number" />
         <label>Address</label>
-        <input type="text" placeholder="Enter address" />
+        <input type="text" name="Address" placeholder="Enter address" />
         <label>Email</label>
-        <input type="email" placeholder="Enter email" />
+        <input type="email" name="Email" placeholder="Enter email" />
         <label>Password</label>
-        <input type="password" placeholder="Enter password" />
+        <input type="password" name="Password" placeholder="Enter password" />
         <button className="btn" type="submit">Register</button>
       </form>
     </div>
   </div>
-);
+)};
 
 export default FoodPartnerRegister;
