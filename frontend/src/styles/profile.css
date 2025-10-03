@@ -1,0 +1,102 @@
+.profile-container {
+  max-width: 400px;
+  margin: 32px auto;
+  background: #18181b;
+  border-radius: 20px;
+  border: 2px solid #fff;
+  padding: 24px 16px;
+  color: #fff;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.profile-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.profile-pic {
+  width: 80px;
+  height: 80px;
+  border: 2px solid orange;
+  border-radius: 50%;
+  background: #23272f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: orange;
+}
+
+.profile-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.business-name,
+.address {
+  border: 2px solid orange;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: transparent;
+  color: orange;
+  font-size: 16px;
+  text-align: center;
+}
+
+.profile-stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  border: 2px solid #ff7f7f;
+  border-radius: 16px;
+  padding: 12px 0;
+  background: #23272f;
+}
+
+.stat-box {
+  flex: 1;
+  background: #23272f;
+  border-radius: 8px;
+  text-align: center;
+  margin: 0 8px;
+  color: #fff;
+}
+
+.stat-title {
+  font-size: 15px;
+  color: #baf7c4;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.reels-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+  border: 2px solid #ff7f7f;
+  border-radius: 16px;
+  padding: 12px;
+  background: #23272f;
+}
+
+.reel-box {
+  background: transparent;
+  border: 2px solid #ff7f7f;
+  border-radius: 8px;
+  color: #ff7f7f;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 15px;
+  font-weight: 500;
+}
