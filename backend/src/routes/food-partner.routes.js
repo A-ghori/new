@@ -1,6 +1,6 @@
-const express = reqiure('express');
-const foodPartnerController = reqiure('../controllers/food-partner.controller')
-
+const express = require('express');
+const foodPartnerController =require('../controllers/food-partner.controller')
+const authMiddleWare = require("../middlewares/auth.middleware")
 const router = express.Router();
 
 //api/food-partner/:id 

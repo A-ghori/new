@@ -31,9 +31,9 @@ try {
   })
   // Show Success Message
   setMessage(response.data.message || "Food Partner Register Successfully")
-  if(response.data.success){
-    navigate("/resturant")
-  }
+ if (response.data.success && response.data.foodPartner) {
+ navigate(`/profile/${response.data.foodPartner._id}`);
+}
 } catch (error) {
   if(error.response && error.response.data.message){
     setMessage(error.response.data.message)
