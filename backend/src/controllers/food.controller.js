@@ -4,10 +4,9 @@ const {v4: uuid} = require ("uuid")
 
 
 async function createFood(req,res) {
-        console.log(req.foodPartner)
-console.log(req.body)
-console.log(req.file)
-
+//console.log(req.foodPartner)
+//console.log(req.body)
+//console.log(req.file)
 const fileUploadResult = await storageService.uploadFile( req.file.buffer,uuid())
 
 const foodItem = await foodModel.create({
@@ -25,7 +24,7 @@ res.status(201).json({
 async function findFood(req,res) {
     console.log(req.user)
     const foodItems = await foodModel.find({})
-    res.status(401).json({
+    res.status(201).json({
         message: "Food Item Fetched Successfully",
         foodItems
     })

@@ -16,6 +16,7 @@ async function registerUser(req,res) {
     })
     if(isUserAlreadyExist){
         return res.status(400).json({
+            success:false,
             message:"User already exists"
         })
         
@@ -37,6 +38,7 @@ async function registerUser(req,res) {
     res.cookie("token",token)
 
     res.status(201).json({
+        success:true,
         message: "User Registered Successfully",
         user:{
             _id: user._id,
@@ -60,6 +62,7 @@ async function loginUser(req,res) {
     })
     if(!user){
         res.status(400).json({
+            success:false,
             message: "Invalid Email or Password"
         })
     }
@@ -68,6 +71,7 @@ async function loginUser(req,res) {
 
     if(!isPasswordValids){
         return res.status(400).json({
+            success:false,
             message: "Invalid Email or Password"
         })
     }
@@ -79,6 +83,7 @@ async function loginUser(req,res) {
     res.cookie("token",token)
 
     res.status(200).json({
+        success:true,
         message: "User Logged in Successfully",
         user: {
             _id: user._id,
@@ -107,6 +112,7 @@ async function registerFoodPartner (req,res){
     })
     if(isFoodPartnerAlreadyExist){
         res.status(400).json({
+            success: false,
             message:"Food Partner Already Exist"
         })
     }
@@ -127,6 +133,7 @@ async function registerFoodPartner (req,res){
     res.cookie("token",token)
 
     res.status(201).json({
+        success:true,
         message: " Food Partner Registered SUccessfull ",
         foodPartner: {
             _id: foodPartner._id,
@@ -139,7 +146,7 @@ async function registerFoodPartner (req,res){
     })
 }
 
-//Login for food Prtner 
+//Login for food Partner 
 async function loginFoodPartner(req,res) {
     const {email,password, phone} = req.body;
 
@@ -150,6 +157,7 @@ async function loginFoodPartner(req,res) {
 
     if(!partner){
         res.status(400).json({
+            success: false,
             message:"Email or Password Not found "
         })
     }
@@ -157,6 +165,7 @@ async function loginFoodPartner(req,res) {
     const isPasswordValid = await bcrypt.compare(password, partner.password);
     if(!isPasswordValid){
         return res.status(400).json({
+            success:false,
             message: "Invalid Password and email"
         })
     }
@@ -165,6 +174,7 @@ const token = jwt.sign({
 },process.env.JWT_SECRET)
 res.cookie("token",token)
 res.status(201).json({
+    success:true,
     message: "Food Partner Login Successful",
     partner: {
             _id:partner._id,

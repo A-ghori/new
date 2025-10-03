@@ -1,0 +1,68 @@
+.reels-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+.reel {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: black;
+}
+
+.reel-video {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+.reel-overlay {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  pointer-events: none;
+  padding: 0 20px;
+}
+
+.reel-description {
+  color: #fff;
+  margin-bottom: 8px;
+  max-width: 90vw;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  line-clamp: 2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.reel-button {
+  background: linear-gradient(135deg, #ff5a5f, #ff9966);
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  text-decoration: none;
+  font-weight: bold;
+  pointer-events: auto;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.reel-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}

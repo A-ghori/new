@@ -2,8 +2,10 @@ import React from "react";
 import "../styles/FoodPartnerRegister.css";
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const FoodPartnerRegister = () => {
+  const [message,setMessage] = useState()
 const navigate = useNavigate()
 
 const handleSubmit = async (e) => {
@@ -16,19 +18,31 @@ const Address = e.target.elements.Address.value;
 const Email = e.target.elements.Email.value;
 const Password = e.target.elements.Password.value;
 
+try {
+  const response = await axios.post("http://localhost:3000/api/auth/partner/register",{
+    name: Name,
+    email:Email,
+    password: Password,
+    phone: Contact,
+    resturant: Resturant,
+    address: Address
+  },{
+  withCredentials:true
+  })
+  // Show Success Message
+  setMessage(response.data.message || "Food Partner Register Successfully")
+  if(response.data.success){
+    navigate("/resturant")
+  }
+} catch (error) {
+  if(error.response && error.response.data.message){
+    setMessage(error.response.data.message)
+  }else{
+    setMessage("Something went wrong try again later ")
+  }
+}
 
-const response = await axios.post("http://localhost:3000/api/auth/partner/register",{
-  name: Name,
-  email:Email,
-  password: Password,
-  phone: Contact,
-  resturant: Resturant,
-  address: Address
-},{
-withCredentials:true
-})
-console.log(response.data)
-navigate("/resturant")
+
 }
 return(
   <div className="auth-page">
@@ -49,6 +63,7 @@ return(
         <input type="password" name="Password" placeholder="Enter password" />
         <button className="btn" type="submit">Register</button>
       </form>
+      {message && <div className="message">{message}</div>}
     </div>
   </div>
 )};
