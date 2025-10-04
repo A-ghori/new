@@ -17,7 +17,8 @@ const Resturant = e.target.elements.Resturant.value;
 const Address = e.target.elements.Address.value;
 const Email = e.target.elements.Email.value;
 const Password = e.target.elements.Password.value;
-
+const TotalMeals = e.target.elements.TotalMeals.value;
+const CustomerServed = e.target.elements.CustomerServed.value
 try {
   const response = await axios.post("http://localhost:3000/api/auth/partner/register",{
     name: Name,
@@ -25,7 +26,9 @@ try {
     password: Password,
     phone: Contact,
     resturant: Resturant,
-    address: Address
+    address: Address,
+    totalMeals: TotalMeals,
+    customerServed:CustomerServed
   },{
   withCredentials:true
   })
@@ -61,6 +64,10 @@ return(
         <input type="email" name="Email" placeholder="Enter email" />
         <label>Password</label>
         <input type="password" name="Password" placeholder="Enter password" />
+         <label>Total Meals In Menu</label>
+        <input type="totalMeals" name="TotalMeals" placeholder="Enter Total Meals Items" />
+         <label> Total Customer Served</label>
+        <input type="customerServed" name="CustomerServed" placeholder="Enter The Total Number of Customer Served " />
         <button className="btn" type="submit">Register</button>
       </form>
       {message && <div className="message">{message}</div>}

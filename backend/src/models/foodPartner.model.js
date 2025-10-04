@@ -26,6 +26,14 @@ address:{
 resturant:{
     type:String,
     required:true
+},
+totalMeals:{
+    type:String,
+    required:true
+},
+customerServed:{
+    type:String,
+    required:true
 }
 },
 {

@@ -8,9 +8,8 @@ const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [reels,setReels] = useState(null)
 
-
-  const reels = Array.from({ length: 30 }, (_, i) => `Reel ${i + 1}`);
 
   useEffect(() => {
     setLoading(true);
@@ -20,6 +19,7 @@ const Profile = () => {
       })
       .then((response) => {
         setProfile(response.data.foodPartner);
+        setReels(response.data.foodPartner.foodItems)
         setLoading(false);
       })
       .catch((err) => {
@@ -52,7 +52,7 @@ const Profile = () => {
         </div>
         <div className="stat-box">
           <div className="stat-title">Customer Served</div>
-          <div className="stat-value">{profile?.customersServed || 0}</div>
+          <div className="stat-value">{profile?.customerServed || 0}</div>
         </div>
       </div>
       <div className="reels-grid">
