@@ -14,8 +14,7 @@ const Profile = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`http://localhost:3000/api/food-partner/${id}`, { 
+    axios.get(`http://localhost:3000/api/food-partner/${id}`, { 
       
          withCredentials: true
       })
@@ -42,7 +41,7 @@ const Profile = () => {
           <div className="profile-pic-placeholder">No Image</div>
         )}
         <div className="profile-info">
-          <div className="business-name">{profile?.name}</div>
+          <div className="business-name">{profile?.resturant}</div>
           <div className="address">{profile?.address}</div>
         </div>
       </div>
