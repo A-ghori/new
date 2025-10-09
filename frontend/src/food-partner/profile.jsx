@@ -1,69 +1,81 @@
-import React, { useEffect, useState } from "react";
-import "../styles/profile.css";
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from 'react'
+import '../styles/profile.css'
+import { useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
 const Profile = () => {
-  const { id } = useParams();
-  const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [reels,setReels] = useState(null)
+    const { id } = useParams()
+    const navigate = useNavigate()
+    const [ profile, setProfile ] = useState(null)
+    const [ videos, setVideos ] = useState([])
+
+    useEffect(() => {
+        axios.get(`http://localhost:3000/api/food-partner/${id}`, { withCredentials: true })
+            .then(response => {
+                setProfile(response.data.foodPartner)
+                setVideos(response.data.foodPartner.foodItems)
+            })
+    }, [ id ])
 
 
-  useEffect(() => {
-    setLoading(true);
-    axios.get(`http://localhost:3000/api/food-partner/${id}`, { 
-      
-         withCredentials: true
-      })
-      .then((response) => {
-        setProfile(response.data.foodPartner);
-        setReels(response.data.foodPartner.foodItems)
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching profile:", err);
-        setError("Failed to fetch profile");
-        setLoading(false);
-      });
-  }, [id]);
+    return (
+        <main className="profile-page">
+            <section className="profile-header">
+                <div className="profile-meta">
 
-  if (loading) return <div>Loading profile...</div>;
-  if (error) return <div>{error}</div>;
-
-  return (
-    <div className="profile-container">
-      <div className="profile-header">
-        {profile.imageUrl ? (
-          <img src={profile.imageUrl} alt="Profile" className="profile-pic" />
-        ) : (
-          <div className="profile-pic-placeholder">No Image</div>
-        )}
-        <div className="profile-info">
-          <div className="business-name">{profile?.resturant}</div>
-          <div className="address">{profile?.address}</div>
+                    <img className="profile-avatar" src="https://images.unsplash.com/photo-1754653099086-3bddb9346d37?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0Nnx8fGVufDB8fHx8fA%3D%3D" alt="" />
+<div className="profile-info">
+    <div className="info-row">
+        <div>
+            <span className="profile-stat-label">Restaurant Name</span>
+            <h1 className="profile-pill profile-business">
+                {profile?.resturant}
+            </h1>
         </div>
-      </div>
-      <div className="profile-stats">
-        <div className="stat-box">
-          <div className="stat-title">Total Meals</div>
-          <div className="stat-value">{profile?.totalMeals || 0}</div>
+        <div>
+            <span className="profile-stat-label">Address</span>
+            <h1 className="profile-pill profile-address">
+                {profile?.address}
+            </h1>
         </div>
-        <div className="stat-box">
-          <div className="stat-title">Customer Served</div>
-          <div className="stat-value">{profile?.customerServed || 0}</div>
-        </div>
-      </div>
-      <div className="reels-grid">
-        {reels.map((reel, idx) => (
-          <div className="reel-box" key={idx}>
-            {reel}
-          </div>
-        ))}
-      </div>
     </div>
-  );
-};
+</div>
+                </div>
+  <button className="cf-btn primary" onClick={() => navigate('/create-food')}>Add Food Video</button>
 
-export default Profile;
+                <div className="profile-stats" role="list" aria-label="Stats">
+                    <div className="profile-stat" role="listitem">
+                        <span className="profile-stat-label">Total Meals Available</span>
+                        <span className="profile-stat-value">{profile?.totalMeals}</span>
+                    </div>
+                  
+                    <div className="profile-stat" role="listitem">
+                        <span className="profile-stat-label">Customer Served Total</span>
+                        <span className="profile-stat-value">{profile?.customerServed}</span>
+                    </div>
+                </div>
+            </section>
+
+            <hr className="profile-sep" />
+
+            <section className="profile-grid" aria-label="Videos">
+                {videos.map((v) => (
+                    <div key={v.id} className="profile-grid-item">
+                        {/* Placeholder tile; replace with <video> or <img> as needed */}
+
+
+                        <video
+                            className="profile-grid-video"
+                            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                            src={v.videos} muted ></video>
+
+
+                    </div>
+                ))}
+            </section>
+        </main>
+    )
+}
+
+export default Profile

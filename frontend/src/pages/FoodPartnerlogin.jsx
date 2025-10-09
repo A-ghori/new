@@ -13,28 +13,29 @@ const handleSubmit = async (e) => {
   const Contact = e.target.elements.Contact.value;
   const Password = e.target.elements.Password.value;
 
- try {
-  
-   const response = await axios.post("http://localhost:3000/api/auth/partner/login", {
-     email : Email,
-     password: Password,
-     phone: Contact
-   });
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/api/auth/partner/login",
+      { email: Email, password: Password, phone: Contact }
+    );
 
-   setMessage(response.data.message || "Food Partner Login Successfully")
-   if(response.data.success){
+    setMessage(response.data.message || "Food Partner Login Successfully");
 
-     navigate ("/resturant")
-   }
- } 
- catch (error) {
-  if(error.response && error.response.data.message){
-    setMessage(error.response.data.message)
-  }else{
-    setMessage("Something Went Wrong Please Try Again Later")
+    // ✅ navigate to actual partner profile
+    if(response.data.success && response.data.partner){
+      const partnerId = response.data.partner._id;
+      navigate(`/food-partner/${partnerId}`);
+    }
+
+  } catch (error) {
+    if(error.response && error.response.data.message){
+      setMessage(error.response.data.message);
+    } else {
+      setMessage("Something Went Wrong Please Try Again Later");
+    }
   }
- }
 }
+
   return(
   <div className="auth-page">
     <div className="card">

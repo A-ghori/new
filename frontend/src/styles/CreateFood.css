@@ -1,0 +1,148 @@
+/* Mobile-first responsive styles. Uses theme variables if available in theme.css. */
+
+:root {
+  --cf-bg: #f6f8fb;
+  --cf-card: #ffffff;
+  --cf-text: #0f172a;
+  --cf-muted: #6b7280;
+  --cf-accent: linear-gradient(90deg,#4f46e5,#06b6d4);
+  --cf-border: rgba(15,23,42,0.06);
+  --cf-radius: 12px;
+}
+
+/* Dark theme override (if your theme.css toggles data-theme on body) */
+body[data-theme='dark'] {
+  --cf-bg: #0b0d10;
+  --cf-card: #0f1724;
+  --cf-text: #e6eef8;
+  --cf-muted: #9ca3af;
+  --cf-border: rgba(255,255,255,0.06);
+}
+
+.create-food-page {
+  min-height: 100vh;
+  padding: 20px;
+  background: var(--cf-bg);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: var(--cf-text);
+}
+
+.create-food-card {
+  width: 100%;
+  max-width: 520px;
+  background: var(--cf-card);
+  border-radius: var(--cf-radius);
+  padding: 18px;
+  box-shadow: 0 8px 30px var(--cf-border);
+  border: 1px solid rgba(0,0,0,0.02);
+  box-sizing: border-box;
+}
+
+/* Title */
+.cf-title {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: left;
+}
+
+/* Labels & inputs */
+.cf-label {
+  display: block;
+  margin: 12px 0 6px;
+  font-size: 13px;
+  color: var(--cf-muted);
+}
+
+.cf-input,
+.cf-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.06);
+  background: transparent;
+  color: var(--cf-text);
+  outline: none;
+  box-sizing: border-box;
+  font-size: 14px;
+  transition: box-shadow .12s, border-color .12s;
+}
+
+.cf-input:focus,
+.cf-textarea:focus {
+  border-color: rgba(79,70,229,0.9);
+  box-shadow: 0 6px 18px rgba(79,70,229,0.06);
+}
+
+/* File input small tweak */
+.cf-file {
+  padding: 8px 6px;
+  font-size: 14px;
+}
+
+/* Video preview */
+.cf-video-wrap {
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.cf-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 320px;
+  background: #000;
+}
+
+/* Actions */
+.cf-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  flex-direction: column; /* mobile first: stacked buttons */
+}
+
+.cf-btn {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  transition: transform .08s ease, opacity .08s ease;
+}
+
+.cf-btn:active { transform: translateY(1px); }
+
+.cf-btn.primary {
+  color: #fff;
+  background: var(--cf-accent);
+}
+
+.cf-btn.secondary {
+  background: transparent;
+  color: var(--cf-text);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Larger screens - inline actions and card narrower center */
+@media (min-width: 520px) {
+  .create-food-page { padding: 32px; }
+  .create-food-card { padding: 22px; }
+  .cf-actions { flex-direction: row; }
+  .cf-btn { width: auto; min-width: 140px; }
+}
+
+/* Accessibility helpers */
+.cf-input[aria-invalid="true"],
+.cf-textarea[aria-invalid="true"] {
+  border-color: #ef4444;
+  box-shadow: 0 4px 12px rgba(239,68,68,0.08);
+}
