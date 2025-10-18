@@ -32,7 +32,7 @@ try {
     // Show success message
 setMessage(response.data.message || "Registration Successful" )
 if(response.data.success){      
-    navigate("/")
+    navigate("/home")
     
   } 
 }

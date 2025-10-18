@@ -14,23 +14,25 @@ const Home = () => {
   const navigate = useNavigate();
   const videoRefs = useRef([]);
 
-  // Fetch videos
   useEffect(() => {
-    axios.get("http://localhost:3000/api/food", { withCredentials: true })
-      .then(res => setVideos(res.data.foodItems))
-      .catch(err => console.error("Error fetching videos:", err));
+    const fetchVideos = () => {
+      axios.get("http://localhost:3000/api/food", { withCredentials: true })
+        .then(res => setVideos(res.data.foodItems))
+        .catch(err => console.error("Error fetching videos:", err));
+    }
+
+    fetchVideos(); // Initial fetch
+    const interval = setInterval(fetchVideos, 5000); // Auto refresh every 5 sec
+
+    return () => clearInterval(interval);
   }, []);
 
-  // Play all videos automatically once videos are loaded
   useEffect(() => {
     if (videos.length > 0) {
       videoRefs.current.forEach(videoEl => {
         if (videoEl) {
-          try {
-            videoEl.play();
-          } catch (err) {
-            console.log("Autoplay prevented:", err);
-          }
+          try { videoEl.play(); }
+          catch (err) { console.log("Autoplay prevented:", err); }
         }
       });
     }

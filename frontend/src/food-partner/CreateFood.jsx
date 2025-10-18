@@ -4,7 +4,7 @@ import '../styles/CreateFood.css'
 // import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 
-const MAX_VIDEO_BYTES = 5 * 1024 * 1024 // 5 MB
+const MAX_VIDEO_BYTES = 30 * 1024 * 1024 // 30 MB
 
 const CreateFood = () => {
   const [videoPreview, setVideoPreview] = useState(null)
@@ -38,7 +38,7 @@ const CreateFood = () => {
       return
     }
     if (f.size > MAX_VIDEO_BYTES) {
-      setError('Video too large. Max 5 MB allowed.')
+      setError('Video too large. Max 30 MB allowed.')
       return
     }
     setError('')
@@ -112,7 +112,7 @@ const CreateFood = () => {
         <h2 className="cf-title">Add Food Item</h2>
 
         {/* Video Input */}
-        <label className="cf-label" htmlFor="video">Video (max 5 MB)</label>
+        <label className="cf-label" htmlFor="video">Video (max 30 MB)</label>
         <div
           className={`cf-dropzone ${dragging ? 'dragging' : ''}`}
           onDrop={handleDrop}

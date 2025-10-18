@@ -1,0 +1,122 @@
+/* Fullscreen Animated Gradient Background */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.welcome-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(
+    -45deg,
+    #ff9a9e,
+    #fad0c4,
+    #fbc2eb,
+    #a18cd1,
+    #84fab0,
+    #8fd3f4,
+    #cfd9df,
+    #d4fc79,
+    #f9f586
+  );
+  background-size: 400% 400%;
+  animation: gradientBG 20s ease-in-out infinite; /* Faster animation */
+}
+
+/* Welcome Card */
+.welcome-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 30px;
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  max-width: 90%; /* Mobile friendly */
+  animation: fadeIn 1s ease forwards;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Title */
+.welcome-title {
+  font-size: 2.2rem; /* smaller for mobile */
+  font-weight: 700;
+  color: white;
+  margin-bottom: 35px;
+  text-align: center;
+  text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Buttons Container */
+.welcome-buttons {
+  display: flex;
+  flex-direction: column; /* Column layout */
+  gap: 20px; /* Space between buttons */
+  width: 100%;
+  align-items: center;
+}
+
+/* All Buttons same height, responsive width */
+/* All Buttons same height, responsive width */
+.welcome-btn, .skip-btn {
+  text-decoration: none;
+  padding: 16px 0;
+  font-size: 1.2rem;
+  font-weight: 700; /* Bold */
+  border-radius: 12px;
+  color: black; /* Black text */
+  text-align: center;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.4); /* Slight black border for contrast */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: 220px; /* Responsive width */
+  max-width: 80%; /* Mobile friendly */
+}
+
+/* Hover Effect */
+.welcome-btn:hover, .skip-btn:hover {
+  transform: scale(1.08) rotate(-1deg);
+  background: rgba(0, 0, 0, 0.1); /* subtle dark effect on hover */
+  color: black; /* Keep text black */
+}
+
+
+
+/* Skip Button special */
+.skip-btn {
+  font-size: 1.1rem;
+  animation: fadeIn 1.5s ease forwards;
+}
+
+/* Media Query for small devices */
+@media (max-width: 480px) {
+  .welcome-title {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+  }
+
+  .welcome-btn, .skip-btn {
+    font-size: 1rem;
+    width: 180px;
+    padding: 14px 0;
+  }
+
+  .welcome-card {
+    padding: 30px 20px;
+  }
+}
