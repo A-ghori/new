@@ -18,7 +18,7 @@ const Profile = () => {
             .catch(err => console.error(err))
     }, [id])
 
-    // 🗑 DELETE VIDEO FUNCTION
+    // DELETE VIDEO FUNCTION
     const handleDelete = async (videoId) => {
         if (!window.confirm("Are you sure you want to delete this food item?")) return;
 
@@ -78,7 +78,7 @@ const Profile = () => {
 
             <hr className="profile-sep" />
 
-            {/* 🎥 FOOD ITEMS GRID */}
+            {/*  FOOD ITEMS GRID */}
             <section className="profile-grid">
                 {videos.map((v) => (
                     <div key={v._id} className="profile-grid-item">
@@ -90,11 +90,11 @@ const Profile = () => {
                             muted
                         ></video>
 
-                        {/* 🍽 SHOW NAME & DESCRIPTION */}
+                        {/*  SHOW NAME & DESCRIPTION */}
                         <h3 className="food-title">{v.name}</h3>
                         <p className="food-desc">{v.description}</p>
 
-                        {/* 🗑 DELETE BUTTON */}
+                        {/* DELETE BUTTON */}
                         <button
                             className="cf-btn secondary"
                             onClick={() => handleDelete(v._id)}

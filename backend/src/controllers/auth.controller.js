@@ -79,8 +79,16 @@ async function loginUser(req,res) {
     const token = jwt.sign({
         id: user._id,
 
-    },process.env.JWT_SECRET)
-    res.cookie("token",token)
+    },process.env.JWT_SECRET,{
+        expiresIn:"180d"
+    });
+    // Set Cookies for presistent login 
+    res.cookie("token",token,{
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax",
+        maxAge: 6*30*24*60*60*1000 // 6 months
+    })
 
     res.status(200).json({
         success:true,
@@ -94,10 +102,33 @@ async function loginUser(req,res) {
     })
 } 
 
+// For User Check 
+async function checkUser(req,res) {
+    if(req.user) {
+        res.status(200).json({
+            success:true,
+            user: {
+                _id: req.user._id,
+                fullName: req.user.fullName,
+                email: req.user.email,
+                phone: req.user.phone,
+                address: req.user.address
+            }
+        });
+    } else {
+        res.status(401).json({
+            success: false, message: "Not Logged In"
+        })
+    }
+}
 
 //For user LogOut
 async function logOutUser(req,res){
-    res.clearCookie("token");
+    res.clearCookie("token",{
+        httpOnly:true,
+        secure:false,
+        sameSite: 'lax',
+    });
     res.status(200).json({
         message: "User logout successfully"
     });
@@ -206,5 +237,6 @@ module.exports={
     logOutUser,
     registerFoodPartner,
     loginFoodPartner,
-    logOut
+    logOut,
+    checkUser
 }

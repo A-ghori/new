@@ -23,6 +23,8 @@ router.post(
         foodController.findFood
     )
 
+
+    // Delete Food Items Video By ID
 router.delete("/:id",authMiddleWare.authFoodPartnerMiddleware, (req,res) => {
   console.log("ID received:", req.params.id);
   foodPartnerController.deleteFoodItems(req,res);
