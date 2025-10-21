@@ -19,7 +19,7 @@ router.post(
 
     router.get(
         "/",
-        authMiddleWare.authUserMiddleware,
+       // authMiddleWare.authUserMiddleware,
         foodController.findFood
     )
 
