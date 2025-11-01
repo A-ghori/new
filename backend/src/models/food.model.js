@@ -13,8 +13,12 @@ const foodSchema = new mongoose.Schema({
     description:{
         type:String,
         required:true
-},
-foodPartner: {
+    },
+    menuImage: {
+    type: String, // store url of the uploaded image
+   required: true
+    },
+    foodPartner: {
     type: mongoose.Schema.Types.ObjectId,
     ref:"foodpartner"
 }
