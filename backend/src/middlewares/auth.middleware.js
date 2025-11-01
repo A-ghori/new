@@ -33,20 +33,26 @@ async function  authUserMiddleware(req,res,next) {
     const token = req.cookies.token;
 
     if(!token){
-        res.status(401).json({
+       return res.status(401).json({
             message: "Please Login or Register first"
         })
     }
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
         const user = await userModel.findById(decoded.id)
+         if(!user){
+            return res.status(401).json({
+                success:false,
+                message: "User not found"
+            });
+        }
         req.user = user 
 
         next()
 
     } catch (error) {
         return res.status(401).json({
-            message: "Invalid"
+            message: "Invalid token"
         })
     }
 }

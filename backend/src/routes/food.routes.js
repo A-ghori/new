@@ -21,8 +21,14 @@ router.post(
 // ✅ Get all foods
 router.get("/", foodController.findFood);
 
+<<<<<<< HEAD
 // ✅ Delete food
 router.delete("/:id", authMiddleWare.authFoodPartnerMiddleware, (req, res) => {
+=======
+
+    // Delete Food Items Video By ID
+router.delete("/:id",authMiddleWare.authFoodPartnerMiddleware, (req,res) => {
+>>>>>>> 1121357219ccaf261146ac53b096105549f240c2
   console.log("ID received:", req.params.id);
   foodPartnerController.deleteFoodItems(req, res);
 });

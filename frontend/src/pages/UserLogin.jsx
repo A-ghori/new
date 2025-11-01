@@ -20,10 +20,12 @@ const UserLogin = () => {
         email: Email,
         password: Password,
         phone:Contact
+        },{
+          withCredentials: true,
         })
       setMessage(response.data.message || "User Login Successful")
       if(response.data.success){
-      navigate("/")
+      navigate("/home")
       }
      }
       catch (error) {

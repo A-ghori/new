@@ -55,7 +55,7 @@ const Home = () => {
             <div className="reel-description">
               {truncate(video.description, 80)}
             </div>
-            <button className="reel-button" onClick={() => navigate("/create-food")}>
+            <button className="reel-button" onClick={() => navigate("/resturant")}>
               Visit Store
             </button>
           </div>
