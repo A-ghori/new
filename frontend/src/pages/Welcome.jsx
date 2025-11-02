@@ -21,11 +21,11 @@ const Welcome = () => {
           <button className='welcome-btn' onClick={()=> navigate("/user/login")}>
             Already Have An Account
           </button>
+          <button className="skip-btn" onClick={() => navigate("/home")}>
+            Skip For Now Because I Have An Account
+          </button>
           <button className="welcome-btn" onClick={() => navigate("/food-partner/register")}>
             I am a Food Partner
-          </button>
-          <button className="skip-btn" onClick={() => navigate("/home")}>
-            Skip For Now
           </button>
           {/* Logout Button */}
           <button 
